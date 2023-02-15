@@ -4,12 +4,14 @@ import { Text, Box, Heading, Image, Container, Button } from "@chakra-ui/react";
 const Products = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8080/products").then((res) => {
-      setProducts(res.data);
-    });
+    axios
+      .get("https://odd-rose-leopard-suit.cyclic.app/products")
+      .then((res) => {
+        setProducts(res.data);
+      });
   }, []);
   const addtocart = (el) => {
-    axios.post("http://localhost:8080/cart/create", el);
+    axios.post("https://odd-rose-leopard-suit.cyclic.app/cart/create", el);
   };
   return (
     <Container

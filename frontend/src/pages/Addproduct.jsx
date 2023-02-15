@@ -17,7 +17,8 @@ const Addproduct = () => {
       image,
       price,
     };
-    axios.post(`http://localhost:8080/products/create`, payload)
+    axios
+      .post(`https://odd-rose-leopard-suit.cyclic.app/products/create`, payload)
       .then((res) => {});
   };
   return (

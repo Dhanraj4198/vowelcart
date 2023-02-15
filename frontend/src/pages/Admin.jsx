@@ -37,14 +37,18 @@ const Admin = () => {
     getData();
   }, [products]);
   const getData = () => {
-    axios.get("http://localhost:8080/products").then((res) => {
-      setProducts(res.data);
-    });
+    axios
+      .get("https://odd-rose-leopard-suit.cyclic.app/products")
+      .then((res) => {
+        setProducts(res.data);
+      });
   };
   const handleDelte = (id) => {
-    axios.delete(`http://localhost:8080/products/delete/${id}`).then((res) => {
-      getData();
-    });
+    axios
+      .delete(`https://odd-rose-leopard-suit.cyclic.app/products/delete/${id}`)
+      .then((res) => {
+        getData();
+      });
   };
   const handleEdit = (id) => {
     const payload = {
@@ -53,7 +57,10 @@ const Admin = () => {
       price: +price,
     };
     axios
-      .patch(`http://localhost:8080/products/edit/${id}`, payload)
+      .patch(
+        `https://odd-rose-leopard-suit.cyclic.app/products/edit/${id}`,
+        payload
+      )
       .then((res) => {
         getData();
       });

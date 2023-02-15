@@ -7,7 +7,7 @@ const Cart = () => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const getData = () => {
-    axios.get("http://localhost:8080/cart").then((res) => {
+    axios.get("https://odd-rose-leopard-suit.cyclic.app/cart").then((res) => {
       setProducts(res.data);
     });
   };
@@ -22,9 +22,11 @@ const Cart = () => {
     setTotal(to);
   }, [products]);
   const handleDelte = (id) => {
-    axios.delete(`http://localhost:8080/cart/delete/${id}`).then((res) => {
-      getData();
-    });
+    axios
+      .delete(`https://odd-rose-leopard-suit.cyclic.app/cart/delete/${id}`)
+      .then((res) => {
+        getData();
+      });
   };
   return (
     <Container maxW={"80%"} display={"flex"} justifyContent={"space-between"}>
@@ -74,7 +76,10 @@ const Cart = () => {
           Total Amount : ${Math.floor(total + (total * 18) / 100)}
         </Text>
         <br />
-        <form action="http://localhost:8080/payment" method="POST">
+        <form
+          action="https://odd-rose-leopard-suit.cyclic.app/payment"
+          method="POST"
+        >
           <Button type="submit" colorScheme="blue">
             Proceed to checkout
           </Button>

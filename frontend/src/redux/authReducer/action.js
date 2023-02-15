@@ -38,7 +38,7 @@ export const signupFailure = () => {
 export const loginData = (payload) => (dispatch) => {
   dispatch(loginRequest());
   return axios
-    .post("http://localhost:8080/user/login", payload)
+    .post("https://odd-rose-leopard-suit.cyclic.app/user/login", payload)
     .then((res) => {
       return dispatch(loginSuccess(res.data));
     })
@@ -49,7 +49,7 @@ export const loginData = (payload) => (dispatch) => {
 export const signupData = (payload) => (dispatch) => {
   dispatch(signupRequest());
   return axios
-    .post("http://localhost:8080/user/signup", payload)
+    .post("https://odd-rose-leopard-suit.cyclic.app/user/signup", payload)
     .then((res) => {
       return dispatch(signupSuccess());
     })
