@@ -1,11 +1,11 @@
 const express = require("express");
-const { ProductModel } = require("../models/Product.model");
-const productRouter = express.Router();
+const { CartModel } = require("../models/Cart.model");
+const cartRouter = express.Router();
 
-productRouter.get("/", async (req, res) => {
+cartRouter.get("/", async (req, res) => {
   const query = req.query;
   try {
-    const users = await ProductModel.find(query);
+    const users = await CartModel.find(query);
     res.send(users);
   } catch (err) {
     console.log(err);
@@ -13,10 +13,10 @@ productRouter.get("/", async (req, res) => {
   }
 });
 
-productRouter.post("/create", async (req, res) => {
+cartRouter.post("/create", async (req, res) => {
   const payload = req.body;
   try {
-    const product = new ProductModel(payload);
+    const product = new CartModel(payload);
     await product.save();
     res.send({ msg: "Created successfully" });
   } catch (err) {
@@ -25,11 +25,12 @@ productRouter.post("/create", async (req, res) => {
   }
 });
 
-productRouter.patch("/edit/:id", async (req, res) => {
+cartRouter.patch("/edit/:id", async (req, res) => {
   const _id = req.params.id;
   const payload = req.body;
   try {
-    await ProductModel.findByIdAndUpdate({ _id }, payload);
+    const query = await CartModel.findByIdAndUpdate({ _id }, payload);
+    console.log(query);
     res.send("Updated");
   } catch (err) {
     console.log(err);
@@ -37,10 +38,10 @@ productRouter.patch("/edit/:id", async (req, res) => {
   }
 });
 
-productRouter.delete("/delete/:id", async (req, res) => {
+cartRouter.delete("/delete/:id", async (req, res) => {
   const _id = req.params.id;
   try {
-    await ProductModel.findByIdAndDelete({ _id });
+    await CartModel.findByIdAndDelete({ _id });
     res.send(`Product ${_id} deleted successfully`);
   } catch (err) {
     console.log(err);
@@ -48,4 +49,4 @@ productRouter.delete("/delete/:id", async (req, res) => {
   }
 });
 
-module.exports = { productRouter };
+module.exports = { cartRouter };

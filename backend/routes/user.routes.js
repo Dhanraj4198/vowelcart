@@ -6,7 +6,7 @@ const { UserModel } = require("../models/User.model");
 const userRouter = express.Router();
 
 userRouter.post("/signup", async (req, res) => {
-  const { email, password, name, age } = req.body;
+  const { email, password, name, userType, address, orders } = req.body;
   const userPresent = await UserModel.findOne({ email });
   if (userPresent) {
     res.send("User already exists, Please try Logging in");
@@ -16,7 +16,14 @@ userRouter.post("/signup", async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          const user = new UserModel({ email, password: hash, name, age });
+          const user = new UserModel({
+            email,
+            password: hash,
+            name,
+            userType,
+            address,
+            orders,
+          });
           await user.save();
           res.send("Signup Successfull !!");
         }
@@ -38,7 +45,11 @@ userRouter.post("/login", async (req, res) => {
       bcrypt.compare(password, hashed_password, function (err, result) {
         if (result) {
           const token = jwt.sign({ userID: user[0]._id }, process.env.secret);
-          res.send({ msg: "Login successfull", token: token });
+          res.send({
+            msg: "Login successfull",
+            token: token,
+            userType: user[0].userType,
+          });
         } else {
           res.send("Login failed");
         }
